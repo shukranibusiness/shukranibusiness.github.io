@@ -530,16 +530,16 @@
         <p>Notre équipe répond à vos messages tous les jours. Écrivez-nous, on vous aide à trouver le bon ebook.</p>
         <ul class="contact-list">
           <li><span class="ico"></span> <a href="mailto:shukranibusiness@gmail.com" style="color:inherit;">shukranibusiness@gmail.com</a></li>
-          <li><span class="ico"></span> <a href="tel:0830578054" style="color:inherit;">08 30 57 80 54</a></li>
+          <li><span class="ico"></span> <a href="https://wa.me/243830578054" target="_blank" rel="noopener" style="color:inherit;">WhatsApp : +243 830 578 054</a></li>
           <li><span class="ico"></span> Réponse sous 24h, tous les jours</li>
           <li><span class="ico"></span> Paiement sécurisé · Accès immédiat</li>
         </ul>
       </div>
       <form class="contact-form" id="contactForm">
         <input type="text" id="cf-name" placeholder="Votre nom" required>
-        <input type="email" id="cf-email" placeholder="Votre email" required>
+
         <textarea id="cf-message" placeholder="Votre message"></textarea>
-        <button type="submit">Envoyer le message</button>
+        <button type="submit">Envoyer sur WhatsApp</button>
       </form>
     </div>
   </div>
@@ -554,7 +554,7 @@
       <a href="#avantages">Pourquoi nous</a>
       <a href="#contact">Contact</a>
       <a href="mailto:shukranibusiness@gmail.com">shukranibusiness@gmail.com</a>
-      <a href="tel:0830578054">08 30 57 80 54</a>
+      <a href="https://wa.me/243830578054" target="_blank" rel="noopener">WhatsApp +243 830 578 054</a>
     </div>
     <span>© 2026 Shukrani Business — Tous droits réservés.</span>
   </div>
@@ -591,15 +591,13 @@
   mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
   // Contact form -> ouvre le client mail avec les infos pré-remplies
-  const CONTACT_EMAIL = 'shukranibusiness@gmail.com';
+  const WHATSAPP = '243830578054';
   document.getElementById('contactForm').addEventListener('submit', function(e){
     e.preventDefault();
     const name = document.getElementById('cf-name').value;
-    const email = document.getElementById('cf-email').value;
     const message = document.getElementById('cf-message').value;
-    const subject = encodeURIComponent('Message depuis le site Shukrani Business — ' + name);
-    const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
-    window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
+    const text = 'Bonjour Shukrani Business, je suis ' + name + '.\n\n' + message;
+    window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
   });
 </script>
 
