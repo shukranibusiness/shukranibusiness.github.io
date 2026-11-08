@@ -99,6 +99,12 @@
     background:var(--amber); color:var(--ink) !important; opacity:1 !important;
     padding:10px 18px; border-radius:100px; font-weight:700;
   }
+  .lang-sw{display:inline-flex;gap:2px;background:rgba(255,248,236,.14);border-radius:100px;padding:3px;margin-left:auto;margin-right:14px}
+  .lang-sw button{border:0;background:none;color:var(--cream);font:700 .72rem Manrope,sans-serif;letter-spacing:.04em;padding:5px 9px;border-radius:100px;cursor:pointer;opacity:.85}
+  .lang-sw button.on{background:var(--amber);color:var(--ink);opacity:1}
+  .site-header.scrolled .lang-sw{background:rgba(28,27,58,.07)}
+  .site-header.scrolled .lang-sw button{color:var(--ink)}
+  .site-header.scrolled .lang-sw button.on{background:var(--amber)}
   .burger{
     display:none; width:40px; height:40px; border-radius:10px; border:1px solid rgba(255,248,236,0.3);
     background:transparent; align-items:center; justify-content:center; cursor:pointer;
@@ -365,7 +371,8 @@
   footer{background:var(--ink); color:rgba(255,248,236,0.6); padding:44px 0; font-size:0.85rem;}
   .footer-inner{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
   .footer-inner .logo{font-size:1.05rem;}
-  .footer-links{display:flex; gap:22px;}
+  .footer-links{display:flex; flex-wrap:wrap; gap:10px 22px;}
+  .footer-links a{word-break:break-word;}
   .footer-links a{opacity:0.75; transition:opacity .2s ease;}
   .footer-links a:hover{opacity:1;}
   .social{display:flex; gap:10px; align-items:center;}
@@ -393,7 +400,7 @@
   }
 </style>
 </head>
-<body>
+<body data-page="home">
 
 <header class="site-header" id="siteHeader">
   <div class="nav-wrap">
@@ -406,6 +413,7 @@
       <a href="#avis">Avis</a>
       <a href="#contact" class="nav-cta">Contact</a>
     </nav>
+    <div class="lang-sw" role="group" aria-label="Langue / Language / Língua"><button type="button" data-lang="fr" aria-label="Français">FR</button><button type="button" data-lang="en" aria-label="English">EN</button><button type="button" data-lang="pt" aria-label="Português">PT</button></div>
     <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -427,7 +435,7 @@
     <div class="hero-copy">
       <p class="welcome-msg">👋 Bienvenue chez Shukrani Business</p>
       <span class="eyebrow">Boutique digitale d'ebooks · PDF · 24h/24</span>
-      <h1>Le savoir qui ne dort <em>jamais</em>.</h1>
+      <h1 data-i18n-html="h1_home">Le savoir qui ne dort <em>jamais</em>.</h1>
       <p class="lead">Shukrani Business rassemble des ebooks pratiques et accessibles, prêts à télécharger en un clic, à n'importe quelle heure du jour ou de la nuit.</p>
       <div class="hero-actions">
         <a href="#boutique" class="btn btn-primary">Découvrir la boutique</a>
@@ -627,11 +635,12 @@
     e.preventDefault();
     const name = document.getElementById('cf-name').value;
     const message = document.getElementById('cf-message').value;
-    const text = 'Bonjour Shukrani Business, je suis ' + name + '.\n\n' + message;
+    const text = (window.SB ? SB.msg('contact', {name: name, message: message}) : 'Bonjour Shukrani Business, je suis ' + name + '.\n\n' + message);
     window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
   });
 </script>
 
+<script src="i18n.js"></script>
 <script src="offre.js"></script>
 </body>
 </html>

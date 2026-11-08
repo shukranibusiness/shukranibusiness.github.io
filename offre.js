@@ -40,25 +40,59 @@
   ov.innerHTML =
     '<div class="sb-box">' +
       '<button class="sb-x" type="button" aria-label="Fermer">×</button>' +
-      '<span class="sb-tag">Attendez ! Offre spéciale</span>' +
-      '<h3 id="sb-title">Prenez les 4 guides au lieu d’un seul</h3>' +
-      '<p>Le <strong>Pack Complet Shukrani</strong> contient <strong class="sb-book"></strong> + 3 autres guides.</p>' +
+      '<span class="sb-tag"></span>' +
+      '<h3 id="sb-title"></h3>' +
+      '<p class="sb-p"></p>' +
       '<div class="sb-row">' +
         '<img src="' + PACK_IMG + '" alt="Pack Complet Shukrani">' +
         '<ul><li>50 Opportunités de Business avec l’IA</li><li>La Vérité cachée derrière la porte</li><li>Leadership, Ventes &amp; Performance</li><li>Construire une confiance solide</li></ul>' +
       '</div>' +
-      '<div class="sb-price"><span>Plus avantageux que les livres séparés</span></div>' +
-      '<a class="sb-yes" href="' + PACK_URL + '" target="_blank" rel="noopener">Oui, je préfère le pack →</a>' +
-      '<button class="sb-no" type="button">Non merci, je veux seulement ce livre</button>' +
+      '<div class="sb-price"><span class="sb-badge"></span></div>' +
+      '<a class="sb-yes" href="' + PACK_URL + '" target="_blank" rel="noopener"></a>' +
+      '<button class="sb-no" type="button"></button>' +
     '</div>';
   document.body.appendChild(ov);
+
+  // Textes de la fenêtre dans les trois langues (le titre des livres reste en français)
+  var L = {
+    fr: { tag: 'Attendez ! Offre spéciale', h: 'Prenez les 4 guides au lieu d’un seul',
+          p: 'Le <strong>Pack Complet Shukrani</strong> contient <strong>{book}</strong> + 3 autres guides.',
+          badge: 'Plus avantageux que les livres séparés', yes: 'Oui, je préfère le pack →',
+          no: 'Non merci, je veux seulement ce livre', close: 'Fermer', alt: 'Pack Complet Shukrani', book: 'ce livre' },
+    en: { tag: 'Wait! Special offer', h: 'Get all 4 guides instead of just one',
+          p: 'The <strong>Shukrani Complete Pack</strong> includes <strong>{book}</strong> + 3 other guides.',
+          badge: 'Better value than buying the books separately', yes: 'Yes, I prefer the pack →',
+          no: 'No thanks, I only want this book', close: 'Close', alt: 'Shukrani Complete Pack', book: 'this book' },
+    pt: { tag: 'Espere! Oferta especial', h: 'Leve os 4 guias em vez de apenas um',
+          p: 'O <strong>Pack Completo Shukrani</strong> inclui <strong>{book}</strong> + 3 outros guias.',
+          badge: 'Mais vantajoso do que comprar os livros em separado', yes: 'Sim, prefiro o pack →',
+          no: 'Não, obrigado, quero apenas este livro', close: 'Fechar', alt: 'Pack Completo Shukrani', book: 'este livro' }
+  };
+  function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function render(book) {
+    var lg = (window.SB && SB.lang && SB.lang()) || 'fr';
+    var t = L[lg] || L.fr;
+    ov.querySelector('.sb-tag').textContent = t.tag;
+    ov.querySelector('#sb-title').textContent = t.h;
+    ov.querySelector('.sb-p').innerHTML = t.p.replace('{book}', esc(book || t.book));
+    ov.querySelector('.sb-badge').textContent = t.badge;
+    ov.querySelector('.sb-yes').textContent = t.yes;
+    ov.querySelector('.sb-no').textContent = t.no;
+    ov.querySelector('.sb-x').setAttribute('aria-label', t.close);
+    ov.querySelector('.sb-row img').setAttribute('alt', t.alt);
+    ov.setAttribute('lang', lg);
+  }
+  var curBook = '';
+  render('');
+  document.addEventListener('sblang', function () { render(curBook); });
 
   var target = null, lastFocus = null;
   function close() { ov.classList.remove('open'); if (lastFocus) lastFocus.focus(); }
   function open(link) {
     target = link.href;
     var parts = (link.getAttribute('data-bump') || '').split('|');
-    ov.querySelector('.sb-book').textContent = parts[0] || 'ce livre';
+    curBook = parts[0];
+    render(curBook);
     lastFocus = link;
     ov.classList.add('open');
     ov.querySelector('.sb-yes').focus();
