@@ -95,6 +95,8 @@
   .guide{background:rgba(255,248,236,.05);border:1px solid rgba(255,248,236,.12);border-radius:18px;padding:18px;display:flex;flex-direction:column}
   .guide .cv{aspect-ratio:1/1;border-radius:12px;overflow:hidden;background:#F3E6CF;margin-bottom:16px}
   .guide .cv img{width:100%;height:100%;object-fit:cover}
+  .guide .cv.portrait img{object-fit:contain}
+  .guide .cv.dark{background:#0C1018}
   .guide .cv.txt{display:flex;align-items:flex-end;padding:16px;background:linear-gradient(160deg,#0E1A14,#24402F);font-family:'Fraunces',serif;font-weight:700;font-size:1.15rem;line-height:1.2;color:var(--cream)}
   .guide .n{font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
   .guide h3{font-size:1.08rem;margin:6px 0 8px;line-height:1.25}
@@ -120,10 +122,11 @@
 
   /* Livres à l'unité */
   .single{background:var(--cream)}
-  .books{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .books{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
   .book{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;display:flex;flex-direction:column;box-shadow:0 8px 26px rgba(28,27,58,.06);transition:transform .25s,box-shadow .25s}
   .book:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(28,27,58,.12)}
   .book img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;margin-bottom:18px}
+  .book img.portrait{object-fit:contain;background:#0C1018}
   .cat{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--coral)}
   .book h3{font-size:1.18rem;margin:6px 0 8px}
   .book p{color:var(--soft);font-size:.93rem;flex:1}
@@ -133,9 +136,12 @@
   .buy{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);gap:10px}
   .buy .p{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700}
   .buy .btn{padding:11px 20px;font-size:.92rem}
+  .book .buy{flex-direction:column;align-items:stretch;gap:12px;text-align:center}
+  .book .buy .btn{width:100%;white-space:nowrap}
   .upsell{margin-top:30px;text-align:center;font-size:.98rem;color:var(--soft)}
   .upsell a{color:var(--coral);font-weight:800}
-  @media(max-width:900px){.books{grid-template-columns:1fr;max-width:460px;margin:0 auto}}
+  @media(max-width:1000px){.books{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.books{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
 
   /* Étapes */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;text-align:center}
@@ -247,9 +253,9 @@
       <p>50 idées de business avec l'IA, avec budgets et exemples, pour entrepreneurs africains.</p>
     </div>
     <div class="guide">
-      <div class="cv txt">La Vérité cachée derrière la porte</div>
+      <div class="cv portrait dark"><img src="../images/couvertures/la-verite-cachee-derriere-la-porte.jpg" alt="La Vérité cachée derrière la porte" loading="lazy"></div>
       <span class="n">Guide 2</span><h3>La Vérité cachée derrière la porte</h3>
-      <p>Inclus dans le pack.</p>
+      <p>Un roman des Éditions Shukrani Business.</p>
     </div>
     <div class="guide">
       <div class="cv"><img src="../images/couvertures/leadership-ventes-performance.jpg" alt="Leadership, Ventes &amp; Performance" loading="lazy"></div>
@@ -306,8 +312,16 @@
       <ul><li>Exercices pratiques</li><li>Lecture rapide</li><li>PDF · 20 pages</li></ul>
       <div class="buy"><span class="p" style="font-size:1rem;font-family:Manrope,sans-serif;color:var(--soft)">Prix sur la boutique</span><a class="btn" href="https://jjahbngp.mychariow.com/prd_ifl6u6dj" target="_blank" rel="noopener" data-bump="Construire une confiance solide">Voir le prix</a></div>
     </article>
+    <article class="book">
+      <img class="portrait" src="../images/couvertures/la-verite-cachee-derriere-la-porte.jpg" alt="Couverture de La Vérité cachée derrière la porte" loading="lazy">
+      <span class="cat">Roman</span>
+      <h3>La Vérité cachée derrière la porte</h3>
+      <p>Un roman publié par les Éditions Shukrani Business, à lire sur votre téléphone, à toute heure.</p>
+      <ul><li>Roman</li><li>Format PDF</li><li>Lecture immédiate</li></ul>
+      <div class="buy"><span class="p" style="font-size:1rem;font-family:Manrope,sans-serif;color:var(--soft)">Prix sur la boutique</span><a class="btn" href="https://jjahbngp.mychariow.com/prd_tno2ahsx" target="_blank" rel="noopener" data-bump="La Vérité cachée derrière la porte">Voir le prix</a></div>
+    </article>
   </div>
-  <p class="upsell">💡 Astuce : le <a href="https://jjahbngp.mychariow.com/prd_r2alyn55" target="_blank" rel="noopener">Pack Complet</a> contient ces 3 livres + un 4e guide, en un seul achat.</p>
+  <p class="upsell">💡 Astuce : le <a href="https://jjahbngp.mychariow.com/prd_r2alyn55" target="_blank" rel="noopener">Pack Complet</a> réunit ces 4 livres en un seul achat.</p>
 </div></section>
 
 <!-- ÉTAPES -->

@@ -252,8 +252,12 @@
   /* ---------- Catalogue ---------- */
   .catalogue{padding:120px 0; background:var(--paper);}
   .shelf-grid{
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:22px;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:22px;
   }
+  .shelf-grid .book-card{flex:0 0 calc((100% - 66px) / 4);}
+  .card-cover.portrait{object-fit:contain; background:#0C1018;}
+  @media (max-width: 900px){ .shelf-grid .book-card{flex-basis:calc((100% - 22px) / 2);} }
+  @media (max-width: 640px){ .shelf-grid .book-card{flex-basis:100%;} }
   .book-card{
     position:relative; border-radius:var(--radius); padding:30px 26px;
     background:var(--ink); color:var(--cream); min-height:220px;
@@ -471,6 +475,10 @@
       <div class="book-card reveal"><span class="stripe"></span>
         <div><img class="card-cover" src="images/couvertures/construire-confiance-solide.jpg" alt="Couverture : Construire une confiance solide" loading="lazy"><span class="cat">Développement personnel</span><h3>Construire une confiance solide</h3><p>Des exercices simples pour avancer sans attendre d'être « prêt ».</p></div>
         <div class="meta"><span>PDF · 20 pages</span><a class="dl-btn" href="https://jjahbngp.mychariow.com/prd_ifl6u6dj" target="_blank" rel="noopener" data-bump="Construire une confiance solide">Voir le prix ↗</a></div>
+      </div>
+      <div class="book-card reveal"><span class="stripe"></span>
+        <div><img class="card-cover portrait" src="images/couvertures/la-verite-cachee-derriere-la-porte.jpg" alt="Couverture : La Vérité cachée derrière la porte" loading="lazy"><span class="cat">Roman</span><h3>La Vérité cachée derrière la porte</h3><p>Un roman des Éditions Shukrani Business, à lire sur votre téléphone, à toute heure.</p></div>
+        <div class="meta"><span>Roman · PDF</span><a class="dl-btn" href="https://jjahbngp.mychariow.com/prd_tno2ahsx" target="_blank" rel="noopener" data-bump="La Vérité cachée derrière la porte">Voir le prix ↗</a></div>
       </div>
     </div>
     <p style="text-align:center; margin-top:36px;"><a href="boutique/" class="btn btn-primary">Voir tous nos livres →</a></p>
