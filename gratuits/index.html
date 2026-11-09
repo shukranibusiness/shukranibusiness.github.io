@@ -116,6 +116,22 @@
   .ok p{color:var(--soft);margin:6px 0}
   .ok .open{display:inline-block;margin:6px 0 14px;color:var(--coral);font-weight:800;text-decoration:underline}
   .ok .btn{width:100%;margin-top:8px}
+  .ok h2{font-size:1.35rem}
+  .step2{margin-top:18px;padding:18px 16px;border-radius:16px;background:#EAFBF2;border:1px solid #BFEBD3}
+  .step2 h3{font-size:1.15rem;margin:6px 0 4px}
+  .step2 p{margin:0 0 4px}
+  .btn-wa{background:#25D366;color:#fff}
+  .btn-wa:hover{box-shadow:0 14px 28px rgba(37,211,102,.4)}
+  .more{margin-top:18px;text-align:left}
+  .more .tag{display:block;text-align:center;margin-bottom:8px}
+  .mini{display:flex;align-items:center;gap:12px;padding:9px 10px;border:1px solid var(--line);border-radius:14px;background:#fff;margin-top:8px;transition:border-color .2s,transform .2s}
+  .mini:hover{border-color:var(--amber);transform:translateY(-1px)}
+  .mini img{width:40px;height:54px;object-fit:cover;border-radius:6px;flex:none}
+  .mini span{flex:1;min-width:0}
+  .mini b{display:block;font-size:.9rem;line-height:1.25}
+  .mini small{display:block;font-size:.76rem;color:var(--soft);margin-top:2px}
+  .mini i{font-style:normal;font-size:.8rem;font-weight:800;color:var(--coral);white-space:nowrap}
+  .more .all{display:block;text-align:center;margin-top:12px;font-size:.9rem;font-weight:800;color:var(--coral);text-decoration:underline}
 </style>
 </head>
 <body data-page="gratuits">
@@ -218,8 +234,19 @@
       <h2>Merci ! Votre livre se télécharge.</h2>
       <p>Si le téléchargement ne démarre pas, ouvrez le PDF ici.</p>
       <a class="open" id="pdf-link" href="#" target="_blank" rel="noopener">Ouvrir le PDF</a>
-      <a class="btn btn-dark" href="https://whatsapp.com/channel/0029VbDdAe2JuyA4SYd9vs1m" target="_blank" rel="noopener">Rejoindre la chaîne WhatsApp</a>
-      <a class="btn" href="../boutique/">Voir la boutique</a>
+      <div class="step2">
+        <span class="tag">Étape suivante</span>
+        <h3>Rejoignez la chaîne WhatsApp</h3>
+        <p>Nouveaux livres, astuces et offres : tout arrive directement sur votre téléphone.</p>
+        <a class="btn btn-wa" href="https://whatsapp.com/channel/0029VbDdAe2JuyA4SYd9vs1m" target="_blank" rel="noopener">Rejoindre la chaîne WhatsApp</a>
+      </div>
+      <div class="more">
+        <span class="tag">Vous aimerez aussi</span>
+        <a class="mini" href="../boutique/#contenu"><img src="../images/couvertures/pack-complet.jpg" alt="" loading="lazy"><span><b>Pack Complet Shukrani</b><small>Pack · 4 guides</small></span><i>Découvrir</i></a>
+        <a class="mini" href="../boutique/#unite"><img src="../images/couvertures/50-opportunites-ia.jpg" alt="" loading="lazy"><span><b>50 Opportunités de Business avec l'IA</b><small>Business &amp; Finance</small></span><i>Découvrir</i></a>
+        <a class="mini" href="../boutique/#unite"><img src="../images/couvertures/leadership-ventes-performance.jpg" alt="" loading="lazy"><span><b>Leadership, Ventes &amp; Performance</b><small>Management &amp; Performance</small></span><i>Découvrir</i></a>
+        <a class="all" href="../boutique/">Voir tous les livres payants →</a>
+      </div>
     </div>
   </div>
 </div>
