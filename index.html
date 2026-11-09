@@ -79,8 +79,11 @@
   }
   .nav-wrap{
     max-width:var(--maxw); margin:0 auto; padding:0 32px;
-    display:flex; align-items:center; justify-content:space-between;
+    display:flex; align-items:center; justify-content:space-between; gap:22px;
   }
+  .nav-wrap nav.main-nav{margin-left:auto; gap:22px;}
+  .nav-wrap .lang-sw{margin-left:0;}
+  .mobile-nav:not(.open){box-shadow:none;}
   .logo{
     font-family:'Fraunces', serif; font-weight:700; font-size:1.25rem;
     color:var(--cream);
@@ -371,6 +374,14 @@
   footer{background:var(--ink); color:rgba(255,248,236,0.6); padding:44px 0; font-size:0.85rem;}
   .footer-inner{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
   .footer-inner .logo{font-size:1.05rem;}
+  .freebooks{padding:70px 0; background:var(--paper);}
+  .fb-band{display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center; background:linear-gradient(135deg,#1C1B3A,#3D1E52); color:var(--cream); border-radius:26px; padding:clamp(1.6rem,4vw,3rem); overflow:hidden;}
+  .fb-band h2{font-size:clamp(1.5rem,3.2vw,2.2rem); margin:10px 0 12px; color:var(--cream);}
+  .fb-band p{opacity:.85; margin-bottom:22px; max-width:480px; line-height:1.6;}
+  .fb-covers{display:flex; gap:10px; justify-content:center;}
+  .fb-covers img{width:23%; border-radius:8px; box-shadow:0 18px 30px -12px rgba(0,0,0,.6);}
+  .fb-covers img:nth-child(odd){transform:translateY(14px);}
+  @media (max-width:800px){.fb-band{grid-template-columns:1fr;}}
   .footer-links{display:flex; flex-wrap:wrap; gap:10px 22px;}
   .footer-links a{word-break:break-word;}
   .footer-links a{opacity:0.75; transition:opacity .2s ease;}
@@ -409,6 +420,7 @@
       <a href="#hero">Accueil</a>
       <a href="#mission">Mission</a>
       <a href="#boutique">Boutique</a>
+      <a href="gratuits/">Livres gratuits</a>
       <a href="#avantages">Pourquoi nous</a>
       <a href="#avis">Avis</a>
       <a href="#contact" class="nav-cta">Contact</a>
@@ -425,6 +437,7 @@
   <a href="#hero">Accueil</a>
   <a href="#mission">Mission</a>
   <a href="#boutique">Boutique</a>
+  <a href="gratuits/">Livres gratuits</a>
   <a href="#avantages">Pourquoi nous</a>
   <a href="#avis">Avis</a>
   <a href="#contact" class="nav-cta">Contact</a>
@@ -492,6 +505,23 @@
     <p style="text-align:center; margin-top:36px;"><a href="boutique/" class="btn btn-primary">Voir tous nos livres →</a></p>
   </div>
 </section>
+
+<!-- LIVRES GRATUITS -->
+<section class="freebooks" id="gratuits">
+  <div class="wrap">
+    <div class="fb-band reveal">
+      <div>
+        <span class="tag" style="color:var(--amber);">Livres gratuits</span>
+        <h2>4 livres gratuits à télécharger</h2>
+        <p>Productivité, démarrer avec peu d'argent, side-business et guide complet de l'entrepreneur. Gratuits, en PDF, à lire sur votre téléphone.</p>
+        <a href="gratuits/" class="btn btn-primary">Télécharger gratuitement →</a>
+      </div>
+      <div class="fb-covers" aria-hidden="true">
+        <img src="gratuits/img/deconnecte-productif.jpg" alt="" loading="lazy">
+        <img src="gratuits/img/petit-budget-grand-depart.jpg" alt="" loading="lazy">
+        <img src="gratuits/img/side-business-5h-semaine.jpg" alt="" loading="lazy">
+        <img src="gratuits/img/de-zero-a-entrepreneur.jpg" alt="" loading="lazy">
+      </div>
     </div>
   </div>
 </section>
@@ -585,8 +615,10 @@
     <div class="footer-links">
       <a href="#mission">Mission</a>
       <a href="#boutique">Boutique</a>
+      <a href="gratuits/">Livres gratuits</a>
       <a href="#avantages">Pourquoi nous</a>
       <a href="#contact">Contact</a>
+      <a href="confidentialite/">Politique de confidentialité</a>
       <a href="mailto:contact@shukranibusiness.shop">contact@shukranibusiness.shop</a>
       <a href="https://wa.me/243830578054" target="_blank" rel="noopener">WhatsApp +243 830 578 054</a>
     </div>
