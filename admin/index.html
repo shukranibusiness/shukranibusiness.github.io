@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Espace privé · Shukrani Business</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1C1B3A;--amber:#FFB238;--coral:#FF6153;--teal:#1FA98F;--bg:#FFFDF8;--card:#fff;--line:#ECE7DD;--mut:#6B6884;--soft:#FFF6E6}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--navy);font:15px/1.5 Manrope,system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,serif;font-weight:600;margin:0}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 60px}
+.hide{display:none!important}
+/* connexion */
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.lbox{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 26px;max-width:390px;width:100%;box-shadow:0 24px 60px -24px rgba(28,27,58,.3)}
+.lbox h1{font-size:1.5rem;margin-bottom:6px}
+.lbox p{margin:0 0 18px;color:var(--mut);font-size:.92rem}
+.in{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;outline:none}
+.in:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,178,56,.25)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--amber);color:var(--navy);font-weight:800;border:0;border-radius:100px;padding:12px 20px;cursor:pointer;text-decoration:none}
+.btn:hover{box-shadow:0 10px 22px -8px rgba(255,178,56,.8)}
+.btn.ghost{background:#fff;border:1.5px solid var(--line);font-weight:700}
+.btn.ghost:hover{box-shadow:none;border-color:var(--navy)}
+.btn.sm{padding:8px 14px;font-size:.85rem}
+.btn.red{background:#fff;color:#C0392B;border:1.5px solid #F2C4BE;font-weight:700}
+.err{color:#C0392B;font-size:.88rem;margin:10px 0 0;min-height:1.2em}
+/* en-tête */
+.top{position:sticky;top:0;z-index:5;background:rgba(255,253,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 16px}
+.brand{font-family:Fraunces,serif;font-weight:700;font-size:1.1rem;margin-right:auto}
+.brand span{color:#E8962A}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 0;-webkit-overflow-scrolling:touch}
+.tab{white-space:nowrap;border:0;background:none;padding:10px 14px;border-radius:12px 12px 0 0;font-weight:700;color:var(--mut);cursor:pointer;border-bottom:3px solid transparent}
+.tab.on{color:var(--navy);border-bottom-color:var(--amber)}
+.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+select.in{width:auto;padding:8px 12px}
+main{padding-top:20px}
+/* cartes */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.kpi small{display:block;color:var(--mut);font-weight:600;font-size:.78rem}
+.kpi b{display:block;font-family:Fraunces,serif;font-size:1.9rem;line-height:1.15;margin-top:2px}
+.kpi i{font-style:normal;font-size:.76rem;color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px}
+.card h3{font-size:1.1rem;margin-bottom:4px}
+.card .sub{color:var(--mut);font-size:.84rem;margin:0 0 12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.legend{display:flex;gap:14px;font-size:.8rem;color:var(--mut);margin-bottom:6px;flex-wrap:wrap}
+.legend span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--c)}
+svg.chart{width:100%;height:auto;display:block}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid #F3EFE6;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.sc{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.empty{color:var(--mut);padding:12px 0;font-size:.92rem}
+.pill{display:inline-block;background:var(--soft);color:#7A4E10;border:1px solid #F6DFB4;border-radius:100px;padding:2px 10px;font-size:.78rem;font-weight:700}
+.rowbar{height:6px;border-radius:4px;background:var(--amber);margin-top:4px;min-width:2px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.toolbar .in{flex:1 1 200px;width:auto}
+.note{background:var(--soft);border:1px solid #F6DFB4;border-radius:14px;padding:12px 14px;font-size:.88rem;color:#5B4210;margin-bottom:16px}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end}
+.form label{font-size:.78rem;font-weight:700;color:var(--mut);display:block;margin-bottom:4px}
+.ok{color:#14806B;font-weight:700;font-size:.9rem;margin-top:8px;min-height:1.2em}
+a.l{color:#14806B;font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+
+<section class="login" id="login">
+  <form class="lbox" id="lform" autocomplete="off">
+    <h1>Espace privé</h1>
+    <p>Shukrani Business — contacts, visites et clics. Entrez votre code d’accès.</p>
+    <input class="in" id="code" type="password" placeholder="Code d’accès" autocomplete="current-password" autocapitalize="characters" spellcheck="false" required>
+    <p class="err" id="lerr" role="alert"></p>
+    <button class="btn" style="width:100%;margin-top:6px" id="lgo">Entrer</button>
+  </form>
+</section>
+
+<div id="app" class="hide">
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">Shukrani <span>Business</span> · privé</div>
+      <div class="bar">
+        <select class="in" id="days" aria-label="Période">
+          <option value="7">7 derniers jours</option>
+          <option value="30" selected>30 derniers jours</option>
+          <option value="90">90 derniers jours</option>
+          <option value="365">12 derniers mois</option>
+        </select>
+        <button class="btn ghost sm" id="refresh">Actualiser</button>
+        <button class="btn ghost sm" id="logout">Quitter</button>
+      </div>
+    </div>
+    <div class="wrap"><nav class="tabs" role="tablist">
+      <button class="tab on" data-tab="over">Aperçu</button>
+      <button class="tab" data-tab="leads">Contacts</button>
+      <button class="tab" data-tab="sales">Ventes</button>
+      <button class="tab" data-tab="set">Réglages</button>
+    </nav></div>
+  </header>
+
+  <main class="wrap">
+    <!-- APERÇU -->
+    <section id="t-over">
+      <div class="kpis" id="kpis"></div>
+      <div class="card">
+        <h3>Visites par jour</h3>
+        <p class="sub">Un visiteur est compté une fois par jour, sans cookie ni donnée personnelle.</p>
+        <div class="legend"><span style="--c:#1C1B3A">Visiteurs</span><span style="--c:#FFB238">Clics vers Chariow</span><span style="--c:#1FA98F">Téléchargements gratuits</span></div>
+        <div id="chart"></div>
+      </div>
+      <div class="grid2">
+        <div class="card"><h3>Clics vers Chariow (acheter)</h3><p class="sub">Par livre et par page d’où part le clic.</p><div id="buyclicks"></div></div>
+        <div class="card"><h3>Livres gratuits</h3><p class="sub">Contacts recueillis par livre sur la période.</p><div id="freebooks"></div></div>
+        <div class="card"><h3>Pages les plus vues</h3><div id="pages"></div></div>
+        <div class="card"><h3>D’où viennent les visiteurs</h3><div id="refs"></div></div>
+        <div class="card"><h3>Autres actions</h3><p class="sub">WhatsApp, réseaux, offre Pack, langue.</p><div id="actions"></div></div>
+        <div class="card"><h3>Langues, appareils, pays</h3><div id="misc"></div></div>
+      </div>
+    </section>
+
+    <!-- CONTACTS -->
+    <section id="t-leads" class="hide">
+      <div class="card">
+        <h3>Contacts des livres gratuits <span class="pill" id="lcount">0</span></h3>
+        <p class="sub">Ces personnes ont accepté de recevoir vos offres. Le téléphone est facultatif.</p>
+        <div class="toolbar">
+          <input class="in" id="lq" type="search" placeholder="Rechercher un nom, un e-mail…">
+          <select class="in" id="lbook"><option value="">Tous les livres</option></select>
+          <button class="btn sm" id="csv">Télécharger (Excel/CSV)</button>
+          <button class="btn ghost sm" id="copymails">Copier les e-mails</button>
+        </div>
+        <div class="sc"><table id="ltable"><thead><tr><th>Date</th><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Livre</th><th>Langue</th><th></th></tr></thead><tbody></tbody></table></div>
+        <div class="ok" id="lmsg"></div>
+      </div>
+    </section>
+
+    <!-- VENTES -->
+    <section id="t-sales" class="hide">
+      <div class="note">Les ventes se font sur Chariow. Tant que les deux ne sont pas reliés, notez ici chaque vente (copiée depuis Chariow) pour voir le chiffre d’affaires et le panier moyen.</div>
+      <div class="kpis" id="skpis"></div>
+      <div class="card">
+        <h3>Ajouter une vente</h3>
+        <form class="form" id="sform">
+          <div><label for="s-date">Date</label><input class="in" id="s-date" type="date" required></div>
+          <div><label for="s-prod">Produit</label><select class="in" id="s-prod" style="width:100%"></select></div>
+          <div><label for="s-amt">Montant ($)</label><input class="in" id="s-amt" type="number" min="0" step="0.01" inputmode="decimal" required></div>
+          <div><label for="s-qty">Quantité</label><input class="in" id="s-qty" type="number" min="1" max="1000" value="1" required></div>
+          <div><label for="s-note">Note (facultatif)</label><input class="in" id="s-note" maxlength="200"></div>
+          <div><button class="btn" style="width:100%">Enregistrer</button></div>
+        </form>
+        <div class="ok" id="smsg"></div>
+      </div>
+      <div class="card"><h3>Historique</h3><div class="sc" id="slist"></div></div>
+    </section>
+
+    <!-- RÉGLAGES -->
+    <section id="t-set" class="hide">
+      <div class="card">
+        <h3>Ne pas compter mes propres visites</h3>
+        <p class="sub">Active ceci sur chaque appareil que vous utilisez (téléphone, ordinateur) pour que vos tests ne faussent pas les chiffres.</p>
+        <button class="btn ghost sm" id="notrack"></button>
+      </div>
+      <div class="card">
+        <h3>Changer le code d’accès</h3>
+        <p class="sub">Au moins 10 caractères. Ne le partagez avec personne, et ne l’envoyez jamais par message.</p>
+        <form class="form" id="cform">
+          <div><label for="c-new">Nouveau code</label><input class="in" id="c-new" type="password" minlength="10" maxlength="100" autocomplete="new-password" required></div>
+          <div><label for="c-new2">Répéter le code</label><input class="in" id="c-new2" type="password" minlength="10" maxlength="100" autocomplete="new-password" required></div>
+          <div><button class="btn" style="width:100%">Changer</button></div>
+        </form>
+        <div class="ok" id="cmsg"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  var API = 'https://ayksjvdyjrdytriybdgk.supabase.co/functions/v1/admin';
+  var BOOKS = { 'deconnecte-productif': 'Déconnecté mais productif', 'petit-budget-grand-depart': 'Petit budget, grand départ', 'side-business-5h-semaine': 'Side business en 5 h/semaine', 'de-zero-a-entrepreneur': 'De zéro à entrepreneur' };
+  var PRODUCTS = { 'prd_r2alyn55': 'Pack Complet', 'prd_sbz7v13l': '50 Opportunités IA', 'prd_kkoot7zo': 'Leadership, Ventes & Performance', 'prd_ifl6u6dj': 'Construire une confiance solide', 'prd_tno2ahsx': 'La Vérité cachée', 'boutique': 'Boutique Chariow' };
+  var PAGES = { '/': 'Accueil', '/boutique/': 'Boutique', '/gratuits/': 'Livres gratuits', '/confidentialite/': 'Confidentialité' };
+  var LANGS = { fr: 'Français', en: 'Anglais', pt: 'Portugais', '?': 'Inconnue' };
+  var $ = function (id) { return document.getElementById(id); };
+  var code = '', stats = null, leads = [], sales = [];
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function num(n) { return Number(n || 0).toLocaleString('fr-FR'); }
+  function usd(n) { return Number(n || 0).toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + ' $'; }
+  function dshort(d) { var p = String(d).split('-'); return p[2] + '/' + p[1]; }
+  function dfull(iso) { try { return new Date(iso).toLocaleString('fr-FR', { timeZone: 'Africa/Kinshasa', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }); } catch (e) { return iso; } }
+
+  async function call(body) {
+    var r = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ code: code }, body)) });
+    var j = await r.json().catch(function () { return {}; });
+    if (r.status === 401) { logout('Code incorrect.'); throw new Error('auth'); }
+    if (r.status === 429) { logout('Trop d’essais. Réessayez dans 15 minutes.'); throw new Error('locked'); }
+    if (!r.ok || !j.ok) throw new Error(j.error || 'server');
+    return j;
+  }
+
+  /* ---------- connexion ---------- */
+  function logout(msg) {
+    code = ''; try { sessionStorage.removeItem('sb_adm'); } catch (e) {}
+    $('app').classList.add('hide'); $('login').classList.remove('hide');
+    $('code').value = ''; $('lerr').textContent = msg || '';
+  }
+  $('lform').addEventListener('submit', async function (e) {
+    e.preventDefault(); $('lerr').textContent = ''; $('lgo').disabled = true;
+    code = $('code').value.trim();
+    try { await call({ action: 'ping' }); try { sessionStorage.setItem('sb_adm', code); } catch (x) {} enter(); }
+    catch (x) { if (x.message !== 'auth' && x.message !== 'locked') $('lerr').textContent = 'Connexion impossible. Réessayez.'; }
+    finally { $('lgo').disabled = false; }
+  });
+  $('logout').onclick = function () { logout(''); };
+  function enter() { $('login').classList.add('hide'); $('app').classList.remove('hide'); load(); }
+
+  /* ---------- onglets ---------- */
+  document.querySelectorAll('.tab').forEach(function (t) {
+    t.onclick = function () {
+      document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x === t); });
+      ['over', 'leads', 'sales', 'set'].forEach(function (k) { $('t-' + k).classList.toggle('hide', k !== t.dataset.tab); });
+    };
+  });
+  $('refresh').onclick = load; $('days').onchange = load;
+
+  async function load() {
+    try {
+      var r = await Promise.all([call({ action: 'stats', days: +$('days').value }), call({ action: 'leads' }), call({ action: 'sales_list' })]);
+      stats = r[0].stats; leads = r[1].leads; sales = r[2].sales;
+      renderOver(); renderLeads(); renderSales();
+    } catch (e) { if (e.message !== 'auth' && e.message !== 'locked') alert('Impossible de charger les données. Réessayez.'); }
+  }
+
+  /* ---------- aperçu ---------- */
+  function table(rows, cols) {
+    if (!rows.length) return '<div class="empty">Pas encore de données.</div>';
+    var max = Math.max.apply(null, rows.map(function (r) { return r[cols.val] || 0; })) || 1;
+    return '<div class="sc"><table><tbody>' + rows.map(function (r) {
+      return '<tr><td>' + esc(r[cols.name]) + '<div class="rowbar" style="width:' + Math.max(2, Math.round((r[cols.val] || 0) / max * 100)) + '%"></div></td><td class="n"><b>' + num(r[cols.val]) + '</b></td></tr>';
+    }).join('') + '</tbody></table></div>';
+  }
+  function renderOver() {
+    var t = stats.totals, s = stats.sales;
+    var rate = t.visitors ? Math.round(t.buy_clicks / t.visitors * 1000) / 10 : 0;
+    var k = [
+      ['Visiteurs', num(t.visitors), 'personnes différentes par jour, additionnées'],
+      ['Pages vues', num(t.pageviews), ''],
+      ['Clics vers Chariow', num(t.buy_clicks), rate + ' % des visiteurs'],
+      ['Contacts gagnés', num(t.leads), num(t.leads_all) + ' au total'],
+      ['Ventes enregistrées', num(s.orders), usd(s.revenue) + ' · panier ' + usd(s.avg)]
+    ];
+    $('kpis').innerHTML = k.map(function (x) { return '<div class="kpi"><small>' + x[0] + '</small><b>' + x[1] + '</b><i>' + esc(x[2]) + '</i></div>'; }).join('');
+    $('chart').innerHTML = chart(stats.daily);
+
+    var buys = {}; var acts = [];
+    stats.events.forEach(function (e) {
+      if (e.event === 'buy_click') {
+        var lab = String(e.label || ''), p = lab.split(' @'), prod = PRODUCTS[p[0]] || p[0], pg = PAGES[p[1]] || p[1] || '';
+        buys[prod + '|' + pg] = (buys[prod + '|' + pg] || 0) + e.n;
+      } else if (e.event !== 'free_download' && e.event !== 'form_open') {
+        var names = { bump_shown: 'Offre Pack affichée', bump_accept: 'Offre Pack acceptée', bump_decline: 'Offre Pack refusée', wa_click: 'WhatsApp', social_click: 'Réseau', lang_switch: 'Changement de langue' };
+        var lab2 = e.label ? ' · ' + (e.event === 'lang_switch' ? (LANGS[e.label] || e.label) : e.label) : '';
+        acts.push({ name: (names[e.event] || e.event) + lab2, n: e.n });
+      }
+    });
+    var br = Object.keys(buys).map(function (k) { var p = k.split('|'); return { name: p[0] + (p[1] ? ' — depuis ' + p[1] : ''), n: buys[k] }; }).sort(function (a, b) { return b.n - a.n; });
+    $('buyclicks').innerHTML = table(br, { name: 'name', val: 'n' });
+    $('freebooks').innerHTML = table(stats.leads_by_book.map(function (b) { return { name: BOOKS[b.book] || b.book, n: b.n }; }), { name: 'name', val: 'n' });
+    $('pages').innerHTML = table(stats.pages.map(function (p) { return { name: PAGES[p.page] || p.page, n: p.pv }; }), { name: 'name', val: 'n' });
+    $('refs').innerHTML = table(stats.refs.map(function (r) { return { name: r.name === '(direct)' ? 'Accès direct / inconnu' : r.name, n: r.n }; }), { name: 'name', val: 'n' });
+    acts.sort(function (a, b) { return b.n - a.n; });
+    $('actions').innerHTML = table(acts, { name: 'name', val: 'n' });
+    $('misc').innerHTML =
+      '<h3 style="font-size:.95rem;margin:0 0 4px">Langues</h3>' + table(stats.langs.map(function (l) { return { name: LANGS[l.name] || l.name, n: l.n }; }), { name: 'name', val: 'n' }) +
+      '<h3 style="font-size:.95rem;margin:14px 0 4px">Appareils</h3>' + table(stats.devices.map(function (d) { return { name: d.name === 'mobile' ? 'Téléphone' : d.name === 'desktop' ? 'Ordinateur' : d.name, n: d.n }; }), { name: 'name', val: 'n' }) +
+      '<h3 style="font-size:.95rem;margin:14px 0 4px">Pays</h3>' + table(stats.countries.map(function (c) { return { name: c.name === '?' ? 'Inconnu' : c.name, n: c.n }; }), { name: 'name', val: 'n' });
+  }
+
+  function chart(daily) {
+    var W = 720, H = 220, pl = 34, pb = 26, pt = 10, n = daily.length;
+    var max = Math.max.apply(null, daily.map(function (d) { return Math.max(d.visitors, d.buy_clicks, d.downloads); })) || 1;
+    var step = Math.pow(10, Math.floor(Math.log10(max))); var top = Math.ceil(max / step) * step; if (top < 4) top = 4;
+    var iw = W - pl - 8, ih = H - pt - pb, gw = iw / n, bw = Math.max(2, Math.min(14, gw / 3.6));
+    var out = '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Visites, clics et téléchargements par jour">';
+    for (var g = 0; g <= 4; g++) {
+      var y = pt + ih - ih * g / 4, v = Math.round(top * g / 4);
+      out += '<line x1="' + pl + '" x2="' + (W - 8) + '" y1="' + y + '" y2="' + y + '" stroke="#ECE7DD"/><text x="' + (pl - 6) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#6B6884">' + v + '</text>';
+    }
+    var lab = Math.ceil(n / 8);
+    daily.forEach(function (d, i) {
+      var cx = pl + gw * i + gw / 2, series = [[d.visitors, '#1C1B3A'], [d.buy_clicks, '#FFB238'], [d.downloads, '#1FA98F']];
+      series.forEach(function (s, k) {
+        var h = ih * s[0] / top, x = cx + (k - 1) * (bw + 1) - bw / 2;
+        out += '<rect x="' + x + '" y="' + (pt + ih - h) + '" width="' + bw + '" height="' + Math.max(h, s[0] ? 1.5 : 0) + '" rx="2" fill="' + s[1] + '"><title>' + dshort(d.d) + ' : ' + s[0] + '</title></rect>';
+      });
+      if ((i % lab === 0 && n - 1 - i >= lab / 2) || i === n - 1) out += '<text x="' + cx + '" y="' + (H - 7) + '" text-anchor="middle" font-size="11" fill="#6B6884">' + dshort(d.d) + '</text>';
+    });
+    return out + '</svg>';
+  }
+
+  /* ---------- contacts ---------- */
+  function filtered() {
+    var q = $('lq').value.trim().toLowerCase(), b = $('lbook').value;
+    return leads.filter(function (l) { return (!b || l.book_slug === b) && (!q || (l.name + ' ' + l.email + ' ' + (l.phone || '')).toLowerCase().indexOf(q) >= 0); });
+  }
+  function renderLeads() {
+    var sel = $('lbook'), cur = sel.value;
+    sel.innerHTML = '<option value="">Tous les livres</option>' + Object.keys(BOOKS).map(function (k) { return '<option value="' + k + '">' + esc(BOOKS[k]) + '</option>'; }).join('');
+    sel.value = cur;
+    var rows = filtered(); $('lcount').textContent = rows.length;
+    $('ltable').querySelector('tbody').innerHTML = rows.length ? rows.map(function (l) {
+      var ph = l.phone ? '<a class="l" href="https://wa.me/' + esc(String(l.phone).replace(/[^0-9]/g, '')) + '" target="_blank" rel="noopener">' + esc(l.phone) + '</a>' : '<span style="color:#aaa">—</span>';
+      return '<tr><td style="white-space:nowrap">' + esc(dfull(l.created_at)) + '</td><td>' + esc(l.name) + '</td><td><a class="l" href="mailto:' + esc(l.email) + '">' + esc(l.email) + '</a></td><td>' + ph + '</td><td>' + esc(BOOKS[l.book_slug] || l.book_slug) + '</td><td>' + esc((l.lang || '').toUpperCase()) + '</td><td><button class="btn red sm" data-del="' + esc(l.id) + '">Supprimer</button></td></tr>';
+    }).join('') : '<tr><td colspan="7" class="empty">Aucun contact.</td></tr>';
+  }
+  $('lq').oninput = renderLeads; $('lbook').onchange = renderLeads;
+  $('ltable').addEventListener('click', async function (e) {
+    var id = e.target.getAttribute && e.target.getAttribute('data-del'); if (!id) return;
+    if (!confirm('Supprimer ce contact définitivement ? (demande de suppression de la personne)')) return;
+    try { await call({ action: 'lead_delete', id: id }); await load(); } catch (x) { alert('Suppression impossible.'); }
+  });
+  function csvCell(v) { v = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g, '""') + '"'; }
+  $('csv').onclick = function () {
+    var rows = filtered(), head = ['Date', 'Nom', 'E-mail', 'Téléphone', 'Livre', 'Langue'];
+    var out = '﻿' + head.map(csvCell).join(';') + '\r\n' + rows.map(function (l) { return [dfull(l.created_at), l.name, l.email, l.phone || '', BOOKS[l.book_slug] || l.book_slug, l.lang].map(csvCell).join(';'); }).join('\r\n');
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([out], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'contacts-shukrani-' + new Date().toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+  };
+  $('copymails').onclick = async function () {
+    var m = Array.from(new Set(filtered().map(function (l) { return l.email; }))).join(', ');
+    try { await navigator.clipboard.writeText(m); $('lmsg').textContent = 'E-mails copiés.'; } catch (e) { $('lmsg').textContent = 'Copie impossible : utilisez le téléchargement CSV.'; }
+  };
+
+  /* ---------- ventes ---------- */
+  function renderSales() {
+    var s = stats.sales;
+    $('skpis').innerHTML = [['Chiffre d’affaires', usd(s.revenue)], ['Ventes', num(s.orders)], ['Panier moyen', usd(s.avg)]].map(function (x) { return '<div class="kpi"><small>' + x[0] + ' (période)</small><b>' + x[1] + '</b></div>'; }).join('');
+    var sel = $('s-prod'); if (!sel.options.length) {
+      ['Pack Complet', '50 Opportunités IA', 'Leadership, Ventes & Performance', 'Construire une confiance solide', 'La Vérité cachée', 'Autre'].forEach(function (p) { var o = document.createElement('option'); o.textContent = p; sel.appendChild(o); });
+      $('s-date').value = new Date().toLocaleDateString('en-CA', { timeZone: 'Africa/Kinshasa' });
+    }
+    $('slist').innerHTML = sales.length ? '<table><thead><tr><th>Date</th><th>Produit</th><th class="n">Montant</th><th class="n">Qté</th><th>Note</th><th></th></tr></thead><tbody>' + sales.map(function (x) {
+      return '<tr><td>' + esc(dshort(x.sold_on)) + '</td><td>' + esc(x.product) + '</td><td class="n">' + usd(x.amount_usd) + '</td><td class="n">' + x.qty + '</td><td>' + esc(x.note || '') + '</td><td><button class="btn red sm" data-sdel="' + x.id + '">Supprimer</button></td></tr>';
+    }).join('') + '</tbody></table>' : '<div class="empty">Aucune vente enregistrée.</div>';
+  }
+  $('sform').addEventListener('submit', async function (e) {
+    e.preventDefault(); $('smsg').textContent = '';
+    try {
+      await call({ action: 'sales_add', sold_on: $('s-date').value, product: $('s-prod').value, amount_usd: +$('s-amt').value, qty: +$('s-qty').value, note: $('s-note').value });
+      $('s-amt').value = ''; $('s-qty').value = 1; $('s-note').value = ''; $('smsg').textContent = 'Vente enregistrée.'; await load();
+    } catch (x) { $('smsg').textContent = 'Enregistrement impossible. Vérifiez les champs.'; }
+  });
+  $('slist').addEventListener('click', async function (e) {
+    var id = e.target.getAttribute && e.target.getAttribute('data-sdel'); if (!id) return;
+    if (!confirm('Supprimer cette vente ?')) return;
+    try { await call({ action: 'sales_delete', id: +id }); await load(); } catch (x) { alert('Suppression impossible.'); }
+  });
+
+  /* ---------- réglages ---------- */
+  function notrackLabel() { var on = false; try { on = localStorage.getItem('sb_notrack') === '1'; } catch (e) {} $('notrack').textContent = on ? '✓ Activé sur cet appareil — cliquer pour désactiver' : 'Activer sur cet appareil'; }
+  $('notrack').onclick = function () { try { if (localStorage.getItem('sb_notrack') === '1') localStorage.removeItem('sb_notrack'); else localStorage.setItem('sb_notrack', '1'); } catch (e) {} notrackLabel(); };
+  notrackLabel();
+  $('cform').addEventListener('submit', async function (e) {
+    e.preventDefault(); var a = $('c-new').value.trim(), b = $('c-new2').value.trim();
+    if (a !== b) { $('cmsg').textContent = 'Les deux codes sont différents.'; return; }
+    try { await call({ action: 'set_code', new_code: a }); code = a; try { sessionStorage.setItem('sb_adm', a); } catch (x) {} $('c-new').value = $('c-new2').value = ''; $('cmsg').textContent = 'Code changé. Utilisez-le à votre prochaine connexion.'; }
+    catch (x) { $('cmsg').textContent = 'Changement impossible (10 caractères minimum).'; }
+  });
+
+  try { var saved = sessionStorage.getItem('sb_adm'); if (saved) { code = saved; call({ action: 'ping' }).then(enter).catch(function () {}); } } catch (e) {}
+})();
+</script>
+</body>
+</html>

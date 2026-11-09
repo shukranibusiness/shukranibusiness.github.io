@@ -314,12 +314,14 @@
       var a = document.createElement('a'); a.href = objUrl; a.download = cur.slug + '.pdf'; document.body.appendChild(a); a.click(); a.remove();
       document.getElementById('pdf-link').href = objUrl;
       formView.style.display = 'none'; okView.classList.add('show'); f.reset();
+      if (window.SBtrack) SBtrack('free_download', cur.slug);
     } catch (x) {
       showErr('Une erreur est survenue. Vérifiez votre connexion et réessayez.');
     } finally { busy = false; go.disabled = false; go.textContent = T('Télécharger gratuitement'); }
   });
 })();
 </script>
+<script src="../track.js" defer></script>
 <script src="../i18n.js"></script>
 </body>
 </html>

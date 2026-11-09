@@ -96,6 +96,7 @@
     lastFocus = link;
     ov.classList.add('open');
     ov.querySelector('.sb-yes').focus();
+    if (window.SBtrack) SBtrack('bump_shown', parts[0] || null);
   }
 
   document.addEventListener('click', function (e) {
@@ -104,8 +105,9 @@
     e.preventDefault();
     open(a);
   });
-  ov.querySelector('.sb-yes').addEventListener('click', function () { setTimeout(close, 50); });
+  ov.querySelector('.sb-yes').addEventListener('click', function () { if (window.SBtrack) SBtrack('bump_accept', 'pack'); setTimeout(close, 50); });
   ov.querySelector('.sb-no').addEventListener('click', function () {
+    if (window.SBtrack) SBtrack('bump_decline', (ov.querySelector('.sb-book').textContent || '').slice(0, 60));
     if (target) window.open(target, '_blank', 'noopener');
     close();
   });
