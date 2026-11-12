@@ -107,6 +107,7 @@ a.l{color:#14806B;font-weight:700;text-decoration:none}
     <div class="wrap"><nav class="tabs" role="tablist">
       <button class="tab on" data-tab="over">Aperçu</button>
       <button class="tab" data-tab="leads">Contacts</button>
+      <button class="tab" data-tab="reviews">Avis <span class="pill" id="rbadge" style="display:none">0</span></button>
       <button class="tab" data-tab="sales">Ventes</button>
       <button class="tab" data-tab="set">Réglages</button>
     </nav></div>
@@ -145,6 +146,19 @@ a.l{color:#14806B;font-weight:700;text-decoration:none}
         </div>
         <div class="sc"><table id="ltable"><thead><tr><th>Date</th><th>Nom</th><th>E-mail</th><th>Téléphone</th><th>Livre</th><th>Langue</th><th></th></tr></thead><tbody></tbody></table></div>
         <div class="ok" id="lmsg"></div>
+      </div>
+    </section>
+
+    <!-- AVIS -->
+    <section id="t-reviews" class="hide">
+      <div class="note">Les avis laissés sur le site attendent ici votre validation. Seuls les avis <b>approuvés</b> défilent sur les pages publiques. Refusez tout avis insultant, faux ou publicitaire.</div>
+      <div class="card">
+        <h3>En attente <span class="pill" id="rpend">0</span></h3>
+        <div class="sc" id="rpending"></div>
+      </div>
+      <div class="card">
+        <h3>Déjà traités</h3>
+        <div class="sc" id="rdone"></div>
       </div>
     </section>
 
@@ -191,12 +205,12 @@ a.l{color:#14806B;font-weight:700;text-decoration:none}
 <script>
 (function () {
   var API = 'https://ayksjvdyjrdytriybdgk.supabase.co/functions/v1/admin';
-  var BOOKS = { 'deconnecte-productif': 'Déconnecté mais productif', 'petit-budget-grand-depart': 'Petit budget, grand départ', 'side-business-5h-semaine': 'Side business en 5 h/semaine', 'de-zero-a-entrepreneur': 'De zéro à entrepreneur' };
+  var BOOKS = { 'deconnecte-productif': 'Déconnecté, productif', 'petit-budget-grand-depart': 'Petit budget, grand départ', 'side-business-5h-semaine': 'Le side-business en 5h/semaine', 'de-zero-a-entrepreneur': 'De zéro à entrepreneur', 'pack-complet': 'Pack Complet', '50-opportunites-ia': '50 Opportunités IA', 'la-verite-cachee': 'La Vérité cachée', 'leadership-ventes-performance': 'Leadership, Ventes & Performance', 'confiance-solide': 'Construire une confiance solide' };
   var PRODUCTS = { 'prd_r2alyn55': 'Pack Complet', 'prd_sbz7v13l': '50 Opportunités IA', 'prd_kkoot7zo': 'Leadership, Ventes & Performance', 'prd_ifl6u6dj': 'Construire une confiance solide', 'prd_tno2ahsx': 'La Vérité cachée', 'boutique': 'Boutique Chariow' };
   var PAGES = { '/': 'Accueil', '/boutique/': 'Boutique', '/gratuits/': 'Livres gratuits', '/confidentialite/': 'Confidentialité' };
   var LANGS = { fr: 'Français', en: 'Anglais', pt: 'Portugais', '?': 'Inconnue' };
   var $ = function (id) { return document.getElementById(id); };
-  var code = '', stats = null, leads = [], sales = [];
+  var code = '', stats = null, leads = [], sales = [], revs = [];
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function num(n) { return Number(n || 0).toLocaleString('fr-FR'); }
@@ -233,16 +247,16 @@ a.l{color:#14806B;font-weight:700;text-decoration:none}
   document.querySelectorAll('.tab').forEach(function (t) {
     t.onclick = function () {
       document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x === t); });
-      ['over', 'leads', 'sales', 'set'].forEach(function (k) { $('t-' + k).classList.toggle('hide', k !== t.dataset.tab); });
+      ['over', 'leads', 'reviews', 'sales', 'set'].forEach(function (k) { $('t-' + k).classList.toggle('hide', k !== t.dataset.tab); });
     };
   });
   $('refresh').onclick = load; $('days').onchange = load;
 
   async function load() {
     try {
-      var r = await Promise.all([call({ action: 'stats', days: +$('days').value }), call({ action: 'leads' }), call({ action: 'sales_list' })]);
-      stats = r[0].stats; leads = r[1].leads; sales = r[2].sales;
-      renderOver(); renderLeads(); renderSales();
+      var r = await Promise.all([call({ action: 'stats', days: +$('days').value }), call({ action: 'leads' }), call({ action: 'sales_list' }), call({ action: 'reviews_list' })]);
+      stats = r[0].stats; leads = r[1].leads; sales = r[2].sales; revs = r[3].reviews;
+      renderOver(); renderLeads(); renderSales(); renderReviews();
     } catch (e) { if (e.message !== 'auth' && e.message !== 'locked') alert('Impossible de charger les données. Réessayez.'); }
   }
 
@@ -345,6 +359,29 @@ a.l{color:#14806B;font-weight:700;text-decoration:none}
     var m = Array.from(new Set(filtered().map(function (l) { return l.email; }))).join(', ');
     try { await navigator.clipboard.writeText(m); $('lmsg').textContent = 'E-mails copiés.'; } catch (e) { $('lmsg').textContent = 'Copie impossible : utilisez le téléchargement CSV.'; }
   };
+
+  /* ---------- avis ---------- */
+  function stars(n) { return n ? '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n) : '—'; }
+  function rrow(x, pending) {
+    var b = pending
+      ? '<button class="btn sm" data-rs="approved" data-id="' + x.id + '">Approuver</button> <button class="btn red sm" data-rs="rejected" data-id="' + x.id + '">Refuser</button>'
+      : (x.status === 'approved' ? '<button class="btn ghost sm" data-rs="rejected" data-id="' + x.id + '">Retirer</button>' : '<button class="btn ghost sm" data-rs="approved" data-id="' + x.id + '">Approuver</button>') + ' <button class="btn red sm" data-rd="' + x.id + '">Supprimer</button>';
+    return '<tr><td style="white-space:nowrap">' + esc(dfull(x.created_at)) + '</td><td>' + esc(x.name) + '<div style="color:#E8962A">' + stars(x.rating) + '</div></td><td style="min-width:220px">' + esc(x.body) + '<div class="sub" style="margin:4px 0 0">' + esc(BOOKS[x.book_slug] || '') + '</div></td>' + (pending ? '' : '<td>' + (x.status === 'approved' ? '<span class="pill">Publié</span>' : 'Refusé') + '</td>') + '<td style="white-space:nowrap">' + b + '</td></tr>';
+  }
+  function renderReviews() {
+    var p = revs.filter(function (x) { return x.status === 'pending'; }), d = revs.filter(function (x) { return x.status !== 'pending'; });
+    $('rpend').textContent = p.length; $('rbadge').textContent = p.length; $('rbadge').style.display = p.length ? 'inline-block' : 'none';
+    $('rpending').innerHTML = p.length ? '<table><thead><tr><th>Date</th><th>Nom / note</th><th>Avis</th><th></th></tr></thead><tbody>' + p.map(function (x) { return rrow(x, true); }).join('') + '</tbody></table>' : '<div class="empty">Aucun avis en attente.</div>';
+    $('rdone').innerHTML = d.length ? '<table><thead><tr><th>Date</th><th>Nom / note</th><th>Avis</th><th>État</th><th></th></tr></thead><tbody>' + d.map(function (x) { return rrow(x, false); }).join('') + '</tbody></table>' : '<div class="empty">Aucun avis traité.</div>';
+  }
+  $('t-reviews').addEventListener('click', async function (e) {
+    var t = e.target; if (!t.getAttribute) return;
+    var st = t.getAttribute('data-rs'), del = t.getAttribute('data-rd');
+    try {
+      if (st) { await call({ action: 'review_set', id: +t.getAttribute('data-id'), status: st }); await load(); }
+      else if (del) { if (!confirm('Supprimer cet avis définitivement ?')) return; await call({ action: 'review_delete', id: +del }); await load(); }
+    } catch (x) { alert('Action impossible.'); }
+  });
 
   /* ---------- ventes ---------- */
   function renderSales() {
