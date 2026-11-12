@@ -362,11 +362,16 @@ a.l{color:#14806B;font-weight:700;text-decoration:none}
 
   /* ---------- avis ---------- */
   function stars(n) { return n ? '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n) : '—'; }
+  function proofBadge(x) {
+    if (x.kind === 'download') return x.verified ? '<span class="pill" style="background:#E6F6F1;color:#14806B;border-color:#BFE6DB">✓ Téléchargement vérifié</span>' : '<span class="pill" style="background:#FDECEA;color:#C0392B;border-color:#F2C4BE">⚠ E-mail introuvable dans les contacts</span>';
+    if (x.kind === 'purchase') return x.verified ? '<span class="pill" style="background:#E6F6F1;color:#14806B;border-color:#BFE6DB">✓ Achat vérifié</span>' : '<span class="pill">Achat Chariow à vérifier</span> n° : <b>' + esc(x.proof || '—') + '</b>';
+    return '<span class="pill">Sans preuve</span>';
+  }
   function rrow(x, pending) {
     var b = pending
       ? '<button class="btn sm" data-rs="approved" data-id="' + x.id + '">Approuver</button> <button class="btn red sm" data-rs="rejected" data-id="' + x.id + '">Refuser</button>'
       : (x.status === 'approved' ? '<button class="btn ghost sm" data-rs="rejected" data-id="' + x.id + '">Retirer</button>' : '<button class="btn ghost sm" data-rs="approved" data-id="' + x.id + '">Approuver</button>') + ' <button class="btn red sm" data-rd="' + x.id + '">Supprimer</button>';
-    return '<tr><td style="white-space:nowrap">' + esc(dfull(x.created_at)) + '</td><td>' + esc(x.name) + '<div style="color:#E8962A">' + stars(x.rating) + '</div></td><td style="min-width:220px">' + esc(x.body) + '<div class="sub" style="margin:4px 0 0">' + esc(BOOKS[x.book_slug] || '') + '</div></td>' + (pending ? '' : '<td>' + (x.status === 'approved' ? '<span class="pill">Publié</span>' : 'Refusé') + '</td>') + '<td style="white-space:nowrap">' + b + '</td></tr>';
+    return '<tr><td style="white-space:nowrap">' + esc(dfull(x.created_at)) + '</td><td>' + esc(x.name) + '<div style="color:#E8962A">' + stars(x.rating) + '</div></td><td style="min-width:220px">' + esc(x.body) + '<div class="sub" style="margin:4px 0 0">' + esc(BOOKS[x.book_slug] || '') + '</div><div style="margin-top:6px">' + proofBadge(x) + '</div></td>' + (pending ? '' : '<td>' + (x.status === 'approved' ? '<span class="pill">Publié</span>' : 'Refusé') + '</td>') + '<td style="white-space:nowrap">' + b + '</td></tr>';
   }
   function renderReviews() {
     var p = revs.filter(function (x) { return x.status === 'pending'; }), d = revs.filter(function (x) { return x.status !== 'pending'; });

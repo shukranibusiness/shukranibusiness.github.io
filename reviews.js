@@ -47,7 +47,7 @@
     '.sbr-form textarea{min-height:110px;resize:vertical}' +
     '.sbr-form input:focus,.sbr-form select:focus,.sbr-form textarea:focus{outline:none;border-color:var(--amber,#FFB238);box-shadow:0 0 0 3px rgba(255,178,56,.25)}' +
     '.sbr-stars{display:flex;gap:4px}.sbr-stars button{border:0;background:none;font-size:2rem;line-height:1;cursor:pointer;color:#D9D5CB;padding:2px}.sbr-stars button.on{color:var(--amber,#FFB238)}' +
-    '.sbr-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}' +
+    '.sbr-radio{display:flex!important;gap:10px;align-items:center;font-weight:600!important;margin:6px 0!important}.sbr-radio input{margin:0}.sbr-help{margin:6px 0 0;font-size:.78rem;color:var(--soft,#777);line-height:1.4}.sbr-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}' +
     '.sbr-chk{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:.84rem;line-height:1.4;color:var(--soft,rgba(28,27,58,.7))}.sbr-chk input{margin-top:3px}' +
     '.sbr-err{color:#C0392B;font-size:.86rem;margin:10px 0 0;min-height:1.2em}.sbr-ok{color:#14806B;font-weight:700;margin:10px 0 0}' +
     '.sbr-count{float:right;font-weight:600;color:var(--soft,#888);font-size:.76rem}';
@@ -104,19 +104,35 @@
 
     var f = el('form', 'sbr-form' + (formOpen ? ' open' : '')); f.noValidate = true; f.id = 'sbr-form';
     f.innerHTML =
-      '<label for="sbr-name"></label><input type="text" id="sbr-name" maxlength="60" autocomplete="given-name">' +
-      '<label id="sbr-rl"></label><div class="sbr-stars" role="radiogroup" aria-labelledby="sbr-rl"></div>' +
-      '<label for="sbr-book"></label><select id="sbr-book"></select>' +
-      '<label for="sbr-text"><span class="sbr-count" id="sbr-count">0/600</span></label><textarea id="sbr-text" maxlength="600"></textarea>' +
+      '<label for="sbr-name" id="l-name"></label><input type="text" id="sbr-name" maxlength="60" autocomplete="given-name">' +
+      '<label id="l-kind"></label>' +
+      '<label class="sbr-radio"><input type="radio" name="sbr-kind" value="download" checked><span id="l-kd"></span></label>' +
+      '<label class="sbr-radio"><input type="radio" name="sbr-kind" value="purchase"><span id="l-kp"></span></label>' +
+      '<label for="sbr-proof" id="l-proof"></label><input type="text" id="sbr-proof" maxlength="80" autocomplete="off" inputmode="email">' +
+      '<p class="sbr-help" id="l-help"></p>' +
+      '<label id="l-rate"></label><div class="sbr-stars" role="radiogroup" aria-labelledby="l-rate"></div>' +
+      '<label for="sbr-book" id="l-book"></label><select id="sbr-book"></select>' +
+      '<label for="sbr-text" id="l-text"><span class="sbr-count" id="sbr-count">0/600</span></label><textarea id="sbr-text" maxlength="600"></textarea>' +
       '<input class="sbr-hp" type="text" id="sbr-web" tabindex="-1" autocomplete="off" aria-hidden="true">' +
-      '<label class="sbr-chk"><input type="checkbox" id="sbr-consent"><span></span></label>' +
+      '<label class="sbr-chk"><input type="checkbox" id="sbr-consent"><span id="l-chk"></span></label>' +
       '<p class="sbr-err" id="sbr-err" role="alert"></p>' +
       '<button type="submit" class="sbr-btn" id="sbr-go" style="width:100%;justify-content:center"></button>';
-    var L = f.querySelectorAll('label');
-    L[0].textContent = T('Votre prénom'); L[1].textContent = T('Votre note'); L[2].textContent = T('Livre concerné (facultatif)');
-    L[3].insertBefore(document.createTextNode(T('Votre avis')), L[3].firstChild);
-    f.querySelector('.sbr-chk span').textContent = T('J’accepte que mon prénom et mon avis soient publiés sur ce site.');
-    f.querySelector('#sbr-go').textContent = T('Envoyer mon avis');
+    var Q = function (id) { return f.querySelector('#' + id); };
+    Q('l-name').textContent = T('Votre prénom'); Q('l-rate').textContent = T('Votre note'); Q('l-book').textContent = T('Livre concerné (facultatif)');
+    Q('l-text').insertBefore(document.createTextNode(T('Votre avis')), Q('l-text').firstChild);
+    Q('l-kind').textContent = T('Comment avez-vous eu ce livre ?');
+    Q('l-kd').textContent = T('J’ai téléchargé un livre gratuit'); Q('l-kp').textContent = T('J’ai acheté sur Chariow');
+    Q('l-chk').textContent = T('J’accepte que mon prénom et mon avis soient publiés sur ce site.');
+    Q('sbr-go').textContent = T('Envoyer mon avis');
+    var kindNow = function () { return f.querySelector('input[name=sbr-kind]:checked').value; };
+    var setKind = function () {
+      var d = kindNow() === 'download';
+      Q('l-proof').textContent = T(d ? 'E-mail utilisé pour le téléchargement' : 'Numéro de commande Chariow');
+      Q('l-help').textContent = T(d ? 'Il sert uniquement à vérifier votre téléchargement. Il n’est ni publié ni conservé avec votre avis.' : 'Vous le trouvez dans l’e-mail de confirmation de Chariow. Il est vérifié avant la publication.');
+      Q('sbr-proof').setAttribute('inputmode', d ? 'email' : 'text');
+    };
+    f.querySelectorAll('input[name=sbr-kind]').forEach(function (x) { x.addEventListener('change', setKind); });
+    setKind();
     var sel = f.querySelector('#sbr-book');
     var o0 = el('option', null, T('Choisir un livre')); o0.value = ''; sel.appendChild(o0);
     Object.keys(BOOKS).forEach(function (k) { var o = el('option', null, BOOKS[k]); o.value = k; sel.appendChild(o); });
@@ -138,17 +154,19 @@
     });
     f.addEventListener('submit', async function (e) {
       e.preventDefault(); err.textContent = '';
-      var name = f.querySelector('#sbr-name').value.trim(), text = txt.value.trim();
+      var name = f.querySelector('#sbr-name').value.trim(), text = txt.value.trim(), proof = f.querySelector('#sbr-proof').value.trim();
       if (!name) return err.textContent = T('Veuillez entrer votre prénom.');
+      if (kindNow() === 'download' ? !/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(proof) : proof.length < 3) return err.textContent = T(kindNow() === 'download' ? 'Veuillez entrer l’e-mail utilisé pour le téléchargement.' : 'Veuillez entrer votre numéro de commande Chariow.');
       if (!rating) return err.textContent = T('Veuillez choisir une note.');
       if (text.length < 10 || text.length > 600) return err.textContent = T('Votre avis doit contenir entre 10 et 600 caractères.');
       if (!f.querySelector('#sbr-consent').checked) return err.textContent = T('Veuillez accepter pour continuer.');
       go.disabled = true; go.textContent = T('Envoi en cours…');
       try {
         var r = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-          action: 'submit', name: name, rating: rating, text: text, book: sel.value || null, lang: lang(), consent: true, website: f.querySelector('#sbr-web').value }) });
+          action: 'submit', name: name, rating: rating, text: text, book: sel.value || null, lang: lang(), consent: true, kind: kindNow(), proof: proof, website: f.querySelector('#sbr-web').value }) });
         var j = await r.json().catch(function () { return {}; });
         if (r.status === 429) { err.textContent = T('Trop d’avis envoyés. Réessayez demain.'); }
+        else if (j && j.error === 'proof') { err.textContent = T('Veuillez vérifier votre e-mail ou votre numéro de commande.'); }
         else if (j && j.error === 'links') { err.textContent = T('Les liens ne sont pas acceptés dans un avis.'); }
         else if (!r.ok || !j.ok) { err.textContent = T('Une erreur est survenue. Réessayez.'); }
         else {
